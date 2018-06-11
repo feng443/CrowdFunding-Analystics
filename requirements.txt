@@ -1,0 +1,3 @@
+wbdata
+sqlalchemy
+pymysql
