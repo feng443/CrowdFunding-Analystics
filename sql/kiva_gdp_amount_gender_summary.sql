@@ -6,16 +6,30 @@ Create summary table for scatter chart.
 
 SET GLOBAL innodb_buffer_pool_size=402653184;
 
-drop table if exists gdp_amount_gender_summary;
-create table gdp_amount_gender_summary as 
+drop table if exists daily_loan_summary;
+create table daily_loan_summary as 
 select
-	l.country_code,
-	year(posted_time) as year,
-    avg(loan_amount) avg_loan_amount,
-    sum(loan_amount) total_loan_amount,
+    country_code,
+    gender,
+    date(posted_time) as posted_date,
+    sum(loan_amount) loan_amount,
     count(*) loan_count
-from loan as l
+from loan
 group by 1,2;
 
-alter table gdp_amount_gender_summary add key(year);
-alter table gdp_amount_gender_summary add key(country_code);
+alter table daily_loan_summary add key(posted_date);
+alter table daily_loan_summary add key(country_code);
+
+drop table if exists monthly_loan_summary;
+create table monthly_loan_summary as 
+select
+    country_code,
+    gender,
+    last_day(posted_time) as last_day_of_month,
+    sum(loan_amount) loan_amount,
+    count(*) loan_count
+from loan
+group by 1,2;
+
+alter table monthly_loan_summary add key(last_day_of_month);
+alter table monthly_loan_summary add key(country_code);
