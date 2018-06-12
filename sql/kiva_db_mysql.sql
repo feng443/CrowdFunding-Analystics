@@ -34,7 +34,8 @@ create table loan (
 create table loan_lender(
     loan_id int not null,
     lender_id int not null,
-    primary key(loan_id, lender_id)
+    primary key(loan_id, lender_id),
+    key(lender_id)
 );
 
 create table country (
