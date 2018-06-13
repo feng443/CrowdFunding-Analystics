@@ -43,7 +43,8 @@ create table country (
     country_name varchar(255) not null,
     income_level varchar(255),
     longitude float,
-    latitude float
+    latitude float,
+    region varchar(255)
 );
 
 create table country_gdp (

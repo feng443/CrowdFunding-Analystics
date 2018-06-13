@@ -1,3 +1,4 @@
 wbdata
 sqlalchemy
 pymysql
+flask_sqlalchemy
