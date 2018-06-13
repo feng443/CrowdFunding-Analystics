@@ -26,6 +26,8 @@ select
     country_code,
     gender,
     last_day(posted_time) as last_day_of_month,
+       year(last_day(posted_time)) as year,
+   month(last_day(posted_time)) as month,  
     sum(loan_amount) loan_amount,
     count(*) loan_count
 from loan
