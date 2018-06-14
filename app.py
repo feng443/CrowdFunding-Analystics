@@ -74,7 +74,7 @@ def data_country(cc):
     q = country.select()
     if cc:
         q = q.where(country.c.country_code == cc)
-    df = pd.read_sql(q, engine)
+    df = pd.read_sql(q, engine).dropna()
     return jsonify(df.to_dict(orient='records'))
 
 @app.route('/data/country_gdp', defaults={'cc': '', 'year': ''}) # All countries, all years
