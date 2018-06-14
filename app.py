@@ -21,7 +21,6 @@ app = Flask(__name__)
 #db = SQLAlchemy(app)
 
 metadata = MetaData()
-loan = Table('loan', metadata, autoload=True, autoload_with=engine)
 country = Table('country', metadata, autoload=True, autoload_with=engine)
 country_gdp = Table('country_gdp', metadata, autoload=True, autoload_with=engine)
 monthly_loan_summary = Table('monthly_loan_summary', metadata, autoload=True, autoload_with=engine)
