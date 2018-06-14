@@ -32,9 +32,9 @@ country code, country GDP, World Bank API.
 
 To export country and summary tables:
 ```bash
-mysql -u chan --password=*ORkM}c_3PqY2if kiva country country_code > sql/mysql_dump_country.sql
-mysql -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_summary > sql/mysql_dump_monthly_loan_summary.sql
-mysql -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_lender_summary > sql/mysql_dump_monthly_loan_lender_summary.sql
+mysqldump -u chan --password=*ORkM}c_3PqY2if kiva country country_gdp > sql/mysql_dump_country.sql
+mysqldump -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_summary > sql/mysql_dump_monthly_loan_summary.sql
+mysqldump -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_lender_summary > sql/mysql_dump_monthly_loan_lender_summary.sql
 ```
 
 To import country and summary tables:
