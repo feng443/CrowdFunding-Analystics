@@ -25,3 +25,51 @@ Add real time lenders and loans on Map layers
 
 Other Data sources: 
 country code, country GDP, World Bank API.
+
+# Set up instructions
+
+## Database
+
+To export country and summary tables:
+```bash
+mysql -u chan --password=*ORkM}c_3PqY2if kiva country country_code > sql/mysql_dump_country.sql
+mysql -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_summary > sql/mysql_dump_monthly_loan_summary.sql
+mysql -u chan --password=*ORkM}c_3PqY2if kiva monthly_loan_lender_summary > sql/mysql_dump_monthly_loan_lender_summary.sql
+```
+
+To import country and summary tables:
+
+```bash
+mysql -u chan -p < sql/mysql_dump*.sql
+```
+
+Or use MySQL workbench.
+
+1. Set default schema to kiva. Create kiva schema if not exists.
+2. Load and run sql/mysql_dump*.sql
+
+## Flask App
+
+```bash
+python app.py
+
+or 
+
+SET FLASK_APP=app.py
+flask run
+
+```
+
+TODO: Break model/view
+
+## HTML Templates
+under /templats/
+
+## JavaScript
+
+under statis/js
+
+## CSS
+
+under static/css
+
