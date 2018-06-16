@@ -58,6 +58,9 @@ def index():
     <tr><td> <a href='/data/monthly_loan_summary/'>/data/monthly_loan_summary/&lt;year&gt;/&lt;month&gt;</a></td><td>Year or month is reaquired as data size is large.</td></tr>
     <tr><td><a href='/data/monthly_loan_lender_summary/2016/12'>/data/monthly_loan_lender_summary/&lt;year&gt;/&lt;month&gt;. </a></td><td>Year or month is reaquired as data size is large.</td></tr>
     <tr><td><a href='/data/year_month/'>/data/year_month/</a></td><td>Return list of year and month in the data</td></tr>
+    <tr><td><a href='/data/year/'>/data/year/</a></td><td>Return list of year and month in the data</td></tr>
+    <tr><td><a href='/data/scatter/2016/f'>/data/scatter/</a></td><td>Return list of year and month in the data</td></tr>
+    <tr><td><a href='/data/chord/2016'>/data/chord/</a></td><td>Return list of year and month in the data</td></tr>
     </table>
         
     """
@@ -144,6 +147,44 @@ def data_year_month():
     data = [{y: int(z) for y, z in x.items()} for x in data]
     return jsonify(data)
 
+@app.route('/data/chord/<year>')
+def data_chord(year):
+    data = pd.read_sql("""
+    select
+	lc.region loan_region,
+    bc.region lender_region,
+    sum(loan_count) count
+from monthly_loan_lender_summary as s
+inner join country as lc on s.lender_country_code = lc.country_code
+inner join country as bc on s.loan_country_code = bc.country_code
+where s.year = {}
+group by 1,2
+    """.format(year),
+        engine
+    ).to_dict(orient='records')
+    return jsonify(data)
+
+@app.route('/data/scatter/<year>/<gender>')
+def data_scatter(year, gender):
+    data = pd.read_sql("""
+ select
+        s.country_code,
+        c.country_name,
+        s.gender,
+        g.gdp,
+        sum(loan_amount) loan_amount,
+        sum(loan_count) loan_count
+from monthly_loan_summary as s
+inner join country as c on s.country_code = c.country_code
+inner join country_gdp as g on g.country_code = s.country_code
+where 
+    s.year = {}
+    and s.gender = '{}'
+group by 1,2,3,4
+    """.format(year, gender),
+        engine
+    ).to_dict(orient='records')
+    return jsonify(data)
 
 @app.route('/chord_view')
 def flow_view():
