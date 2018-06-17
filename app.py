@@ -61,6 +61,7 @@ def index():
     <tr><td><a href='/data/year/'>/data/year/</a></td><td>Return list of year and month in the data</td></tr>
     <tr><td><a href='/data/scatter/2016/f'>/data/scatter/</a></td><td>Return list of year and month in the data</td></tr>
     <tr><td><a href='/data/chord/2016'>/data/chord/</a></td><td>Return list of year and month in the data</td></tr>
+    <tr><td><a href='/data/region'>/data/region></td><td>Return list of regions</td></tr>
     </table>
         
     """
@@ -80,80 +81,105 @@ def data_country(cc):
     df = pd.read_sql(q, engine).dropna()
     return jsonify(df.to_dict(orient='records'))
 
-@app.route('/data/country_gdp', defaults={'cc': '', 'year': ''}) # All countries, all years
-@app.route('/data/country_gdp/', defaults={'cc': '', 'year': ''}) # All countries, all years
-@app.route('/data/country_gdp/<cc>', defaults={'year': ''})
-def data_country_gdp(cc, year):
+@app.route('/data/country_gdp', defaults={'cc': '', 'region': ''}) # All countries, all regions
+@app.route('/data/country_gdp/', defaults={'cc': '', 'region': ''}) # All countries, all regions
+@app.route('/data/country_gdp/<cc>', defaults={'region': ''})
+def data_country_gdp(cc, region):
     #for row in db.session.query(Country):
     #    print(row.country_code)
     q = country_gdp.select()
-    # A little hacky here but handle passing either year or country code
-    # Treate cc as year if year = 0 and cc is digit
-    if year == '':
-        if year_re.match(cc):
-            q = q.where(country_gdp.c.year == cc)
+    # A little hacky here but handle passing either region or country code
+    # Treate cc as region if region = 0 and cc is digit
+    if region == '':
+        if region_re.match(cc):
+            q = q.where(country_gdp.c.region == cc)
         elif cc != '':
             q = q.where(country_gdp.c.country_code == cc)
     elif cc != '':
-        q = q.where(country_gdp.c.year == year)
+        q = q.where(country_gdp.c.region == region)
         q = q.where(country_gdp.c.country_code == cc)
 
     df = pd.read_sql(q, engine)
     return jsonify(df.to_dict(orient='records'))
 
-@app.route('/data/monthly_loan_summary', defaults={'year': '', 'month': ''}) # Full data set
-@app.route('/data/monthly_loan_summary/', defaults={'year': '', 'month': ''}) # Full data set
-@app.route('/data/monthly_loan_summary/<year>', defaults={'month': ''}) # All months
-@app.route('/data/monthly_loan_summary/<year>/<month>')
-def data_monthly_loan_summary(year, month):
+@app.route('/data/monthly_loan_summary', defaults={'region': '', 'month': ''}) # Full data set
+@app.route('/data/monthly_loan_summary/', defaults={'region': '', 'month': ''}) # Full data set
+@app.route('/data/monthly_loan_summary/<region>', defaults={'month': ''}) # All months
+@app.route('/data/monthly_loan_summary/<region>/<month>')
+def data_monthly_loan_summary(region, month):
     q = monthly_loan_summary.select()
 
-    # TODO: convert to last_day_of_month like 'year-month%'
-    year_month = year
+    # TODO: convert to last_day_of_month like 'region-month%'
+    region_month = region
     if month != '':
-        year_month = year_month + '-' + month
-    if year != '':
-        q = q.where(monthly_loan_summary.c.last_day_of_month.like(year_month +'%'))
+        region_month = region_month + '-' + month
+    if region != '':
+        q = q.where(monthly_loan_summary.c.last_day_of_month.like(region_month +'%'))
 
     df = pd.read_sql(q, engine)
     return jsonify(df.to_dict(orient='records'))
 
-@app.route('/data/monthly_loan_lender_summary/<year>', defaults={'month': ''}) # All months
-@app.route('/data/monthly_loan_lender_summary/<year>/<month>')
-def data_monthly_loan_lender_summary(year, month):
+@app.route('/data/monthly_loan_lender_summary/<region>', defaults={'month': ''}) # All months
+@app.route('/data/monthly_loan_lender_summary/<region>/<month>')
+def data_monthly_loan_lender_summary(region, month):
     q = monthly_loan_lender_summary.select()
 
-    # TODO: convert to last_day_of_month like 'year-month%'
-    year_month = year
+    # TODO: convert to last_day_of_month like 'region-month%'
+    region_month = region
     if month != '':
-        year_month = year_month + '-' + month
-    if year != '':
-        q = q.where(monthly_loan_lender_summary.c.last_day_of_month.like(year_month +'%'))
+        region_month = region_month + '-' + month
+    if region != '':
+        q = q.where(monthly_loan_lender_summary.c.last_day_of_month.like(region_month +'%'))
 
     df = pd.read_sql(q, engine)
     return jsonify(df.to_dict(orient='records'))
 
-@app.route('/data/year_month')
-@app.route('/data/year_month/')
-def data_year_month():
+@app.route('/data/region_month')
+@app.route('/data/region_month/')
+def data_region_month():
     data = pd.read_sql(
-                select([monthly_loan_summary.c.year,
+                select([monthly_loan_summary.c.region,
                         monthly_loan_summary.c.month]
                 ).distinct().order_by(
-                    'year, month'),
+                    'region, month'),
                     engine
                 ).to_dict(orient='records')
     # numpy int64 cannot be jsonified
     data = [{y: int(z) for y, z in x.items()} for x in data]
     return jsonify(data)
 
+@app.route('/data/year')
+@app.route('/data/year/')
+# TODO: Only take year with > 11 month of data
+def data_year():
+    data = pd.read_sql(
+        select([monthly_loan_summary.c.year])
+              .distinct().order_by(
+            'year'),
+        engine
+    )['year'].tolist()
+    # numpy int64 cannot be jsonified
+    #data = [{y: int(z) for y, z in x.items()} for x in data]
+    return jsonify(data)
+
+@app.route('/data/region')
+@app.route('/data/region/')
+def data_region():
+    data = pd.read_sql(
+        select([country.c.region])
+            .distinct().order_by(
+            'region'),
+        engine
+    )['region'].tolist()
+    return jsonify(data)
+
 @app.route('/data/chord/<year>')
 def data_chord(year):
     data = pd.read_sql("""
     select
-	lc.region loan_region,
-    bc.region lender_region,
-    sum(loan_count) count
+	lc.region lender_region,
+    bc.region loan_region,
+    sum(lender_count) count
 from monthly_loan_lender_summary as s
 inner join country as lc on s.lender_country_code = lc.country_code
 inner join country as bc on s.loan_country_code = bc.country_code
@@ -169,6 +195,8 @@ def data_scatter(year, gender):
     data = pd.read_sql("""
  select
         s.country_code,
+        c.longitude,
+        c.latitude,
         c.country_name,
         s.gender,
         g.gdp,
