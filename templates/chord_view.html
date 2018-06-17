@@ -14,8 +14,10 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
        <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="https://rawgit.com/sghall/7859113/raw/422da4401f7d4fc0352a7c49961d24f03716be7a/gistfile1.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chord_styles3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chord_styles.css') }}">
 
 
     <title>Title</title>
@@ -23,11 +25,25 @@
 <body>
 
 <h1>Chord View</h1>
+
+ <div id="tooltip"></div>
+Year:
+<div id="year-selector"></div>
+<div id="legend"></div>
+
+<p>Loan Count/Lender Count:</p>
+<input type="radio" name="loan_lender" id="loan-radio" value="loan"
+       onclick="currentLoanOrLender = 'loan'; refreshChords(loan_or_lender='loan') ">
+<lable for="loan-radio">Loan</lable>
+<input type="radio" name="loan_lender" id="lender-radio" value="lender"
+        onClick="currentLoanOrLender = 'lender'; refreshChords(loan_or_lender='lender') " checked>
+<lable for="lender-radio">Lender</lable>
+
 <div id="chord"></div>
 <!--
 <svg width="500" height="500"></svg>
 -->
-    <script src="{{ url_for('static', filename='js/test_chord3.js') }}">
+    <script src="{{ url_for('static', filename='js/chord.js') }}">
     </script>
     </body>
 </html>
