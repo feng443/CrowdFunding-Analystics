@@ -190,8 +190,13 @@ group by 1,2
     ).to_dict(orient='records')
     return jsonify(data)
 
+@app.route('/data/map/<year>/<gender>')
+@app.route('/data/map/<year>/', defaults={'gender': ''})
 @app.route('/data/scatter/<year>/<gender>')
+@app.route('/data/scatter/<year>/', defaults={'gender': ''})
 def data_scatter(year, gender):
+    gender_str = "and s.gender = '{}'".format(gender) if gender else  ''
+
     data = pd.read_sql("""
  select
         s.country_code,
@@ -207,9 +212,9 @@ inner join country as c on s.country_code = c.country_code
 inner join country_gdp as g on g.country_code = s.country_code
 where 
     s.year = {}
-    and s.gender = '{}'
-group by 1,2,3,4
-    """.format(year, gender),
+    {}
+group by 1,2,3,4, 5
+    """.format(year, gender_str),
         engine
     ).to_dict(orient='records')
     return jsonify(data)
