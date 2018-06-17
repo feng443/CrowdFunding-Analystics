@@ -1,10 +1,10 @@
 /*
 
-TODO: Fix init
-TODO:oFix mousedown
 TODO Add legend
 TODO: Only include > 10 month year
+TODO: Show self loan/lender
 
+TODO: Make color consistent
 TODO: Change to Percentage
 TODO: Make responsive
 TODO: Add animation or play by each year
@@ -12,8 +12,9 @@ TODO: Add animation or play by each year
 Reference:
 
 D3V4: http://projects.delimited.io/experiments/chord-diagrams/uber.html
-Transition: https://stackoverflow.com/questions/21813723/change-and-transition-dataset-in-chord-diagram-with-d3
-
+Transition:
+1) https://stackoverflow.com/questions/21813723/change-and-transition-dataset-in-chord-diagram-with-d3
+2) https://gist.github.com/databayou/c7ac49a23c275f0dd7548669595b8017
 
 */
 var initYear = 2016
@@ -24,23 +25,19 @@ var regionURL = 'data/region'
 var dataURL = 'data/chord/'
 
 var colors = d3.scaleOrdinal(d3.schemeSet1)
-
-var mpr
 var years
 var regions
-
-var chord
 var last_layout
 
-var path
-var svg
 var arc
 var ribbon
+var svg
 
 var w = 980,
     h = 800,
     r1 = h / 2,
     r0 = r1 - 110;
+
 initChords()
 
 //d3.json(dataURL, function(error, data) {
@@ -86,13 +83,7 @@ refreshChords()
 //refreshChords() // TODO: Fix this hack
 
 function refreshChords() {
-    ////console.log("year: " + year)
-    ////console.log("loan_or_lender: " + loan_or_lender)
-    //console.log('updateChors')
     d3.json(dataURL + currentYear, function(error, data) {
-        //console.log(data[0])
-        // var x = document.getElementById('year-selector')
-        ////console.log(x.options[x.selectedIndex].value)
         mpr = chordMpr(data);
 
         mpr
@@ -109,20 +100,11 @@ function refreshChords() {
                 if (!recs[0]) return 0;
                 return +recs[0].count;
             });
-        //layout = getDefaultLayout()
-        //layout.matrix(mpr.matrix)
-
-        drawChords();
+        drawChords(mpr);
     });
 }
 
 function initChords() {
-    /*
-            var w = 980,
-                h = 800,
-                r1 = h / 2,
-                r0 = r1 - 110;
-*/
     chord = d3.chord()
         .padAngle(0.05)
         .sortSubgroups(d3.descending)
@@ -132,8 +114,7 @@ function initChords() {
         .innerRadius(r0)
         .outerRadius(r0 + 20);
 
-    ribbon = d3.ribbon()
-        .radius(r0);
+    ribbon = d3.ribbon().radius(r0);
 
     svg = d3.select("#chord").append("svg:svg")
         .attr("width", w)
@@ -142,72 +123,55 @@ function initChords() {
         .attr("id", "circle")
         .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
 
-    svg.append("circle")
-        .attr("r", r0 + 20);
+    svg.append("circle").attr("r", r0 + 20);
 }
 
-
 //function drawChords(matrix, mmap) {
-function drawChords() {
+function drawChords(mpr) {
     matrix = mpr.getMatrix()
     mmap = mpr.getMap();
 
     //console.log('set layout')
-    chord = getDefaultChord()
+    // chord = getDefaultChord()
     layout = chord(matrix)
     svg.datum(layout)
 
     var mapReader = chordRdr(matrix, mmap);
 
     var groupG = svg.selectAll("g.group")
-        .data(
-            chord(matrix).groups,
-            function(d) { // Transition need this?
-                return d.index;
-            }
-            /*
-                             function(chords) {
-                                return chords.groups;
-                            }*/
-        )
-
-
-    groupG.exit()
-        .transition()
-        .duration(1500)
-        .attr('opacity', 0)
-        .remove(); // remove after transition are complete
+        .data( chord(matrix).groups, d => d.index
+            /* function(chords) { return chords.groups; }*/ )
 
     newGroups = groupG.enter().append("svg:g")
         .attr("class", "group")
         .on('mouseover', mouseoverGroup)
         .on("mouseout", hideTooltip)
 
+    // This condition handle initial loading
+    if (last_layout === undefined ) {
+        groupG = newGroups
+    } else {
+        groupG.exit().transition()
+        .duration(1500)
+        .attr('opacity', 0)
+        .remove(); // remove after transition are complete
+     }
+
     newGroups.append("svg:path")
-        .attr('id', function(d) {
-            return 'group' + d.index
-        })
+        .attr('id', d => { return 'group' + d.index })
         .style("stroke", "grey")
-        .style("fill", function(d) {
-            //return mapReader(d).gdata;
-            return colors(d.index)
-        })
-    //.attr("d", arc);
+        .style("fill", d => { return colors(d.index) })
 
     groupG.select("path")
-        .transition()
-        .duration(1500)
-        .attr('opacity', 0.5)
-        .attrTween("d", arcTween(last_layout))
+            .transition()
+            .duration(1500)
+            .attrTween("d", arcTween(last_layout))
 
+    //last_layout = layout; return;
     newGroups.append("svg:text")
-        .each(function(d) {
-            d.angle = (d.startAngle + d.endAngle) / 2;
-        })
+        .each( d => { d.angle = (d.startAngle + d.endAngle) / 2; })
         .attr("dy", ".35em")
-        .text(function(d) {
-            return mapReader(d).gname;
-        })
+        .text( d => mapReader(d).gname )
         .style("font-family", "helvetica, arial, sans-serif")
         .style("font-size", "9px")
 
@@ -219,7 +183,6 @@ function drawChords() {
         })
         .attr("transform", transformText)
 
-
     function transformText(d) {
         d.angle = (d.startAngle + d.endAngle) / 2;
         return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")" +
@@ -227,7 +190,6 @@ function drawChords() {
             (d.angle > Math.PI ? "rotate(180)" : "");
     }
 
-    ////console.log(layout)
     //return
     var chordPaths = svg.selectAll("path.chord")
         .data(
@@ -238,20 +200,22 @@ function drawChords() {
             }*/
         )
 
-    //console.log('chordPaths')
-    //console.log(chordPaths)
     var newChords = chordPaths.enter()
         .append("svg:path")
         .attr("class", "chord")
 
+    // Handle initial loading
+    if (last_layout === undefined ) {
+         chordPaths = newChords
+    } else {
     chordPaths.exit().transition()
         .duration(1500)
-        .attr('opacity', 0)
+        //.attr('opacity', 0)
         .remove()
-
+    }
     chordPaths.transition()
         .duration(1500)
-        .attr('opacity', 0.5)
+        //.attr('opacity', 0.5)
         .style("stroke", "grey")
         .style("fill", function(d, i) {
             return colors(d.source.index)
@@ -265,7 +229,7 @@ function drawChords() {
 
     last_layout = layout
 
-
+    // Helper functions
     function hideTooltip(d) {
         d3.select("#tooltip").style("visibility", "hidden")
     }
@@ -280,11 +244,6 @@ function drawChords() {
             .style("left", function() {
                 return (d3.event.pageX - 100) + "px";
             })
-
-        //console.log('mouseoverChord')
-        //console.log(d)
-        //console.log('i: ' + i)
-        //console.log('j:' + j)
     }
 
     function chordTip(d) {
@@ -320,10 +279,7 @@ function drawChords() {
                 p.target.index != i;
         });
     }
-
-
 }
-
 
 function chordKey(data) {
     //console.log('chordKy data')
@@ -416,14 +372,6 @@ function chordTween(oldLayout) {
             return ribbon(tween(t));
         };
     };
-}
-
-
-function getDefaultChord() {
-    return d3.chord()
-        .padAngle(0.05)
-        .sortSubgroups(d3.descending)
-        .sortChords(d3.descending);
 }
 
 function arcTween(oldLayout) {

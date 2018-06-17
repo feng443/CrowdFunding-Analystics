@@ -195,6 +195,8 @@ def data_scatter(year, gender):
     data = pd.read_sql("""
  select
         s.country_code,
+        c.longitude,
+        c.latitude,
         c.country_name,
         s.gender,
         g.gdp,
