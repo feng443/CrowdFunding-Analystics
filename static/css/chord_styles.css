@@ -17,6 +17,12 @@
     pointer-events: all;
 }
 
+li {
+    display: inline-block;
+    padding: 10px;
+    font-size: 16px;
+}
+
 path.group {
     fill-opacity: .8;
 }
