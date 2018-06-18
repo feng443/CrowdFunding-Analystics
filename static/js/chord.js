@@ -38,8 +38,6 @@ var w = 980,
     r1 = h / 2,
     r0 = r1 - 110;
 
-initChords()
-
 //d3.json(dataURL, function(error, data) {
 if (years === undefined) {
     d3.json(yearURL, function(error, data) {
@@ -79,6 +77,7 @@ if (regions == undefined) {
     })
 }
 
+initChords()
 refreshChords()
 //refreshChords() // TODO: Fix this hack
 
@@ -124,6 +123,13 @@ function initChords() {
         .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
 
     svg.append("circle").attr("r", r0 + 20);
+
+    //set up legend
+    d3.select('#legend').selectAll()
+        .data(regions)
+        .enter()
+        .append('')
+
 }
 
 //function drawChords(matrix, mmap) {
