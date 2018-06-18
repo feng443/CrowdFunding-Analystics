@@ -204,7 +204,7 @@ def data_scatter(year, gender):
         c.latitude,
         c.country_name,
         s.gender,
-        g.gdp,
+        min(g.gdp) as gdp,
         sum(loan_amount) loan_amount,
         sum(loan_count) loan_count
 from monthly_loan_summary as s
