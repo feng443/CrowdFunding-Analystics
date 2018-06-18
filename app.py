@@ -153,9 +153,19 @@ def data_region_month():
 # TODO: Only take year with > 11 month of data
 def data_year():
     data = pd.read_sql(
-        select([monthly_loan_summary.c.year])
-              .distinct().order_by(
-            'year'),
+     #   select([monthly_loan_summary.c.year])
+     #         .distinct().order_by(
+     #       'year'),
+    ''' -- Only show years with at least 9 month of data
+    select
+        year,
+        count(distinct month)
+    from monthly_loan_summary
+    group by year
+    having count(distinct month) > 9
+    order by year
+    
+    ''',
         engine
     )['year'].tolist()
     # numpy int64 cannot be jsonified
@@ -216,7 +226,7 @@ where
 group by 1,2,3,4, 5
     """.format(year, gender_str),
         engine
-    ).to_dict(orient='records')
+    ).dropna().to_dict(orient='records')
     return jsonify(data)
 
 @app.route('/chord_view')

@@ -25,6 +25,9 @@ var regionURL = 'data/region'
 var dataURL = 'data/chord/'
 
 var colors = d3.scaleOrdinal(d3.schemeSet1)
+console.log('colors')
+console.log(colors(0))
+console.log('end colors')
 var years
 var regions
 var last_layout
@@ -74,6 +77,18 @@ if (regions == undefined) {
         //console.log('regions')
         //console.log(data)
         regions = data
+
+    console.log('regions')
+    console.log(regions)
+    //set up legend
+    d3.select('#legend').select('ul')
+        .selectAll('li')
+        .data(regions)
+        .enter()
+        .append('li')
+        .text( d => d)
+        .style('color', (d, i) => invertColor(colors(i)))
+        .style('background-color', (d, i) => colors(i))
     })
 }
 
@@ -123,12 +138,6 @@ function initChords() {
         .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
 
     svg.append("circle").attr("r", r0 + 20);
-
-    //set up legend
-    d3.select('#legend').selectAll()
-        .data(regions)
-        .enter()
-        .append('')
 
 }
 
@@ -417,3 +426,14 @@ function arcTween(oldLayout) {
         };
     };
 }
+
+  function invertColor(hexTripletColor) {
+        var color = hexTripletColor;
+        color = color.substring(1); // remove #
+        color = parseInt(color, 16); // convert to integer
+        color = 0xFFFFFF ^ color; // invert three bytes
+        color = color.toString(16); // convert to hex
+        color = ("000000" + color).slice(-6); // pad with leading zeros
+        color = "#" + color; // prepend #
+        return color;
+    }
