@@ -1,13 +1,13 @@
 /*
 
-TODO Add legend
-TODO: Only include > 10 month year
-TODO: Show self loan/lender
+TODO: PLay
+TODO: Add pecentage
 
-TODO: Make color consistent
-TODO: Change to Percentage
-TODO: Make responsive
-TODO: Add animation or play by each year
+
+Future TODO:
+Add Percentage
+Make responsive
+Add animation or play by each year
 
 Reference:
 
@@ -25,12 +25,10 @@ var regionURL = 'data/region'
 var dataURL = 'data/chord/'
 
 var colors = d3.scaleOrdinal(d3.schemeSet1)
-console.log('colors')
-console.log(colors(0))
-console.log('end colors')
 var years
 var regions
 var last_layout
+var chordTotal // Use to compute percentage on the fly
 
 var arc
 var ribbon
@@ -44,16 +42,11 @@ var w = 980,
 //d3.json(dataURL, function(error, data) {
 if (years === undefined) {
     d3.json(yearURL, function(error, data) {
-        //console.log('years')
-        //console.log(data)
         years = data
 
         d3.select('#year-selector')
             .on('change', function(d) {
-                //console.log('changed') //'refreshChords(this.value)')
-                ////console.log(this.value)
                 currentYear = d3.select('#year-list').node().value
-                //console.log(year)
                 refreshChords()
             })
             .append('select')
@@ -74,21 +67,20 @@ if (years === undefined) {
 
 if (regions == undefined) {
     d3.json(regionURL, function(error, data) {
-        //console.log('regions')
-        //console.log(data)
         regions = data
 
-    console.log('regions')
-    console.log(regions)
     //set up legend
     d3.select('#legend').select('ul')
         .selectAll('li')
         .data(regions)
         .enter()
         .append('li')
-        .text( d => d)
-        .style('color', (d, i) => invertColor(colors(i)))
-        .style('background-color', (d, i) => colors(i))
+        .html( (d, i) => {
+            color = colors(i)
+            return  '<li><span style="background-color: ' + color + '">&nbsp;&nbsp;&nbsp;&nbsp;</span> ' + d + '</li>'
+        })
+        //.style('color', (d, i) => invertColor(colors(i)))
+        //.style('background-color', (d, i) => colors(i))
     })
 }
 
@@ -99,6 +91,8 @@ refreshChords()
 function refreshChords() {
     d3.json(dataURL + currentYear, function(error, data) {
         mpr = chordMpr(data);
+
+        d3.select('#subtitle').text(currentLoanOrLender + ' counts (' + currentYear + ')' )
 
         mpr
             .addValuesToMap('lender_region')
@@ -146,8 +140,6 @@ function drawChords(mpr) {
     matrix = mpr.getMatrix()
     mmap = mpr.getMap();
 
-    //console.log('set layout')
-    // chord = getDefaultChord()
     layout = chord(matrix)
     svg.datum(layout)
 
@@ -160,7 +152,7 @@ function drawChords(mpr) {
     newGroups = groupG.enter().append("svg:g")
         .attr("class", "group")
         .on('mouseover', mouseoverGroup)
-        .on("mouseout", hideTooltip)
+        .on("mouseout", mouseoutGroup)
 
     // This condition handle initial loading
     if (last_layout === undefined ) {
@@ -294,12 +286,49 @@ function drawChords(mpr) {
                 p.target.index != i;
         });
     }
+
+    function mouseoutGroup(d, i) {
+        hideTooltip()
+        newChords.classed("fade", false)
+    }
 }
 
-function chordKey(data) {
-    //console.log('chordKy data')
-    //console.log(data)
+// Javascript is asynchronized dso has to use await to run transition one by one
+function refreshToNextYear() {
+    currentYear = currentYear + 1
+    //' refreshChords()
+    //d3.select('#subtitle').text(currentLoanOrLender + ' counts (' + currentYear + ')' )
+    alert(currentYear)
+    if (currentYear >= 2017) {
+        clearInterval()
+    }
+}
 
+function playYears() {
+    currentYear = 2007
+    var timer = setInterval( function() {
+        if (currentYear === 2016) {
+            clearInterval(timer)
+        } else {
+            currentYear = currentYear + 1
+        }
+        refreshChords()
+    }, 2000 )
+}
+
+function showSelfOnly() {
+    chords =  svg.selectAll("path.chord")
+    chords.classed('fade', p => p.source.index != p.target.index )
+}
+
+function showAll() {
+    chords =  svg.selectAll("path.chord")
+    chords.classed('fade', false)
+}
+
+
+
+function chordKey(data) {
     return (data.source.index < data.target.index) ?
         data.source.index + "-" + data.target.index :
         data.target.index + "-" + data.source.index;
@@ -317,8 +346,6 @@ function chordTween(oldLayout) {
     //(which may not have a matching index)
 
     var oldChords = {};
-    //console.log('oldLayout')
-    //console.log(oldLayout)
     if (oldLayout) {
         oldLayout.forEach(function(chordData) {
             oldChords[chordKey(chordData)] = chordData;
@@ -396,11 +423,7 @@ function arcTween(oldLayout) {
     //so we can easily find the matching group
     //even if the group index values don't match the array index
     //(because of sorting)
-    //console.log('arcTween')
-    //console.log(oldLayout)
-    //console.log('artween')
     var oldGroups = {};
-    //console.log(oldLayout)
     if (oldLayout) {
         oldLayout.forEach(function(groupData) {
             oldGroups[groupData.index] = groupData;

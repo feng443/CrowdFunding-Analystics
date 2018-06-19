@@ -29,37 +29,76 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chord_styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
     <title>Title</title>
 </head>
 <body>
 
-<h1>Kiva Crowd Financing Loan/Lender Flow (From 2007 to 2017)</h1>
 
 <div class="container">
 
+    <h1>Kiva Crowd Financing Loan/Lender Transaction Volumes</h1>
+
+
     <div class="row">
-        <div class="col">
-            Year:
-            <div id="year-selector"></div>
+        <div class="col-2">
 
+            <div class="row">
+                <div class="col-12">
+                    Year:
+                    <div id="year-selector"></div>
 
-            <div id="legend" align="center">
-                <ul>
-                </ul>
+                    <button onclick="playYears()">Play</button>
+                </div>
+
             </div>
 
-            <p>Loan Count/Lender Count:</p>
-            <input type="radio" name="loan_lender" id="loan-radio" value="loan"
-                   onclick="currentLoanOrLender = 'loan'; refreshChords(loan_or_lender='loan') ">
-            <lable for="loan-radio">Loan</lable>
-            <input type="radio" name="loan_lender" id="lender-radio" value="lender"
-                   onClick="currentLoanOrLender = 'lender'; refreshChords(loan_or_lender='lender') " checked>
-            <lable for="lender-radio">Lender</lable>
+            <div class="row">
+                <div class="col-12">
+
+                    <p></p>
+                    Direction:<br>
+                    <input type="radio" name="loan_lender" id="loan-radio" value="loan"
+                           onclick="currentLoanOrLender = 'loan'; refreshChords(loan_or_lender='loan') ">
+                    <label for="loan-radio">Loan</label>
+                    <br>
+                    <input type="radio" name="loan_lender" id="lender-radio" value="lender"
+                           onClick="currentLoanOrLender = 'lender'; refreshChords(loan_or_lender='lender') " checked>
+                    <label for="lender-radio">Lend</label>
+                    <p></p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+
+                    Self:<br>
+                    <input type="radio" id="to-self-only" name='self' onclick="showSelfOnly()">
+                    <label for="to-self-only">Only</label>
+                    <br>
+                    <input type="radio" id="to-all" name='self' onClick="showAll()" checked>
+                    <label for="to-all">All</label>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <br>
+                <div class="col-12">
+                    <div id="legend">
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class='col'>
+        <div class='col-10'>
+            <div id="subtitle"></div>
             <div id="tooltip"></div>
             <div id="chord"></div>
         </div>

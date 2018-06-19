@@ -17,10 +17,20 @@
     pointer-events: all;
 }
 
+ul {
+    width: 120px;
+    padding-left: 0;
+  }
 li {
     display: inline-block;
-    padding: 10px;
-    font-size: 16px;
+    padding: 5px;
+    font-size: 14px;
+    width: 200px;
+   /* vertical-align: middle; */
+}
+
+#subtitle {
+    font-size: 30px;
 }
 
 path.group {
@@ -40,5 +50,16 @@ path.chord {
 #legend {/*regions*/
     float:left;
     font-size: 14px;
-    width: 215px;
+    min-width: 250px
+    /* width: 215px; */
 }
+
+.row {
+    bottom-margin: 30px;
+}
+
+// Medium screen / desktop
+@container-desktop:           ((940px + @grid-gutter-width));
+
+// Large screen / wide desktop
+@container-lg-desktop:        ((1420px + @grid-gutter-width));
