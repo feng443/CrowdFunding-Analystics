@@ -1,7 +1,8 @@
 /*
 
-TODO: PLay
+TODO: Fix tooltip position (Still hard-coded)
 TODO: Add pecentage
+TODO: Deploy to heroku (optional)
 
 
 Future TODO:
@@ -249,7 +250,7 @@ function drawChords(mpr) {
                 return (d3.event.pageY - 100) + "px"
             })
             .style("left", function() {
-                return (d3.event.pageX - 100) + "px";
+                return (d3.event.pageX - 450) + "px";
             })
     }
 
@@ -278,7 +279,7 @@ function drawChords(mpr) {
                 return (d3.event.pageY - 80) + "px"
             })
             .style("left", function() {
-                return (d3.event.pageX - 130) + "px";
+                return (d3.event.pageX - 450) + "px";
             })
 
         newChords.classed("fade", function(p) {
@@ -293,21 +294,11 @@ function drawChords(mpr) {
     }
 }
 
-// Javascript is asynchronized dso has to use await to run transition one by one
-function refreshToNextYear() {
-    currentYear = currentYear + 1
-    //' refreshChords()
-    //d3.select('#subtitle').text(currentLoanOrLender + ' counts (' + currentYear + ')' )
-    alert(currentYear)
-    if (currentYear >= 2017) {
-        clearInterval()
-    }
-}
-
+// Autoplay
 function playYears() {
-    currentYear = 2007
+    currentYear = Math.min(...years) - 1
     var timer = setInterval( function() {
-        if (currentYear === 2016) {
+        if (currentYear === Math.max(...years)) {
             clearInterval(timer)
         } else {
             currentYear = currentYear + 1
