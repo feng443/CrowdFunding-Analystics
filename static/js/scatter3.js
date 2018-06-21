@@ -6,6 +6,26 @@ function color(d) { return d.gender; }
 function key(d) { return d.country_name; }
 function year(d) { return d.year; }
 
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+// function myFunction() {
+//     document.getElementById("myDropdown").classList.toggle("show");
+// }
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
 var years = d3.range(2012, 2016 + 1)
 var interval = 500
 
@@ -28,14 +48,16 @@ gender = 'f'
 d3.queue()
 .defer(d3.json, "/data/scatter/2016/m")
 .defer(d3.json, "/data/scatter/2015/m")
+.defer(d3.json, "/data/scatter/2016/f")
+.defer(d3.json, "/data/scatter/2015/f")
 .await(analyze);
   
-function analyze(error, loanSummaryData, year2015) {
+function analyze(error, loanSummaryData, year2015_M, year2016_F, year2015_F) {
     if(error) { console.log(error); }
   
     //alert(loanSummaryData[0])
     console.log(loanSummaryData[0]);
-    console.log(year2015[0]);
+    console.log(year2015_M[0]);
 // d3.json("/data/scatter/2016/f", function (error, loanSummaryData){
 	//d3.csv("")
 	if (error) throw error;
@@ -113,38 +135,50 @@ var yearLabel = svg.append('text')
     .style('opacity', 0.2)
     .text('2016')
 
-	// var bisect = d3.bisector(function(d) { return d[0]; });
+// Add a dot per state. Initialize the data at 2012, and set the colors.
+var dot = svg.append("g")
+        .selectAll(".dot")
+        //.data(interpolateData(2012))
+        .data(loanSummaryData)
+        .enter()
+        .append("circle")
+        .attr("class", "dot")
+        .attr("id", function(d){ return d.country_name; })
+        //.style("fill", function(d) { return colorScale(color(d)); })
+        .style("opacity", 0.6)      // set the element opacity
+        .style("stroke", "grey")    // set the line color
+        .style("fill", "steelblue")
+        .call(position);
 
-	// Add a dot per state. Initialize the data at 2012, and set the colors.
-	var dot = svg.append("g")
-			.selectAll(".dot")
-			//.data(interpolateData(2012))
-			.data(loanSummaryData)
-			.enter()
-			.append("circle")
-            .attr("class", "dot")
-            .attr("id", function(d){ return d.country_name; })
-            //.style("fill", function(d) { return colorScale(color(d)); })
-            .style("opacity", 0.6)      // set the element opacity
-            .style("stroke", "grey")    // set the line color
-            .style("fill", "steelblue")
-            .call(position);
-
-            dot = updateToolTip(dot);
+           // dot = updateToolTip(dot);
                     
 
 	// Add a title.
 	dot.append("title")
-				.text(function(d) { return `loan average: ${(+d.loan_amount/+d.loan_count)} GDP: ${(d.gdp)}`});
+                .text(function(d) { return `Country: ${d.country_name}
+                loan average: ${(+d.loan_amount/+d.loan_count)} GDP: ${(d.gdp)}`});
 				
-	document.getElementById("updateButton").onclick = function () {
+	//document.getElementById("updateButton").onclick = function () {
+    //document.getElementById("male").onclick = function () {
+    var menu = document.getElementById("male");
+    console.log("Male event listener")
+    menu.addEventListener("change", nextYear);
         //alert("I am here!");
-                    
-        //Set the year background text to the selected year:
-        yearLabel.text("2015")
-        // Update circles
-        dot = svg.selectAll(".dot")
-            .data(year2015) // Update with new data
+    function nextYear(){
+        //alert("I am here!");
+        //alert("Menu Value: "+ menu.value)
+        //var menu = document.getElementById("male");
+        if (menu.value == '1') {
+            //do something
+            //alert("In 1")
+          } else if (menu.value == '2') {
+            //do something
+           // alert("In 2")
+            //Set the year background text to the selected year:
+            yearLabel.text("2016")
+            // Update circles
+            dot = svg.selectAll(".dot")
+            .data(loanSummaryData) // Update with new data
             .transition()
             .duration(1000)
             .attr("fill", "red") // Change color
@@ -152,36 +186,71 @@ var yearLabel = svg.append('text')
             .ease(d3.easeBounce)
             .call(position)
             .on("end", function() {
-                console.log("purple")
+                //console.log("purple")
                 d3.select(this)
                 .style("fill", "steelblue")
             });
+          } else if (menu.value == '3') {
+            //do something
+            //alert("In 3")
+            //Set the year background text to the selected year:
+            yearLabel.text("2015")
+            // Update circles
+            dot = svg.selectAll(".dot")
+            .data(year2015_M) // Update with new data
+            .transition()
+            .duration(1000)
+            .attr("fill", "red") // Change color
+            .attr("r", 7) // Change size
+            .ease(d3.easeBounce)
+            .call(position)
+            .on("end", function() {
+                //console.log("purple")
+                d3.select(this)
+                .style("fill", "steelblue")
+            });
+        }
+        else if(menu.value == '4') {
+            //do something
+            //alert(2)
+            //Set the year background text to the selected year:
+            yearLabel.text("2016")
+            // Update circles
+            dot = svg.selectAll(".dot")
+            .data(year2016_F) // Update with new data
+            .transition()
+            .duration(1000)
+            .attr("fill", "red") // Change color
+            .attr("r", 7) // Change size
+            .ease(d3.easeBounce)
+            .call(position)
+            .on("end", function() {
+                //console.log("purple")
+                d3.select(this)
+                .style("fill", "#db8387")
+            });
+          } else if (menu.value == '5') {
+            //do something
+            //alert(3)
+            //Set the year background text to the selected year:
+            yearLabel.text("2015")
+            // Update circles
+            dot = svg.selectAll(".dot")
+            .data(year2015_F) // Update with new data
+            .transition()
+            .duration(1000)
+            .attr("fill", "red") // Change color
+            .attr("r", 7) // Change size
+            .ease(d3.easeBounce)
+            .call(position)
+            .on("end", function() {
+                //console.log("purple")
+                d3.select(this)
+                .style("fill", "#db8387")
+            });
+        }
 
-            
-
-
-            dot = updateToolTip(dot);
-            // Add a label(tooltip) for each dot.
-    // var dotlabel = svg.append("g")
-            d3.selectAll('.dotlabels')
-                .attr("class", "dotlabels")
-                //.selectAll(".dotlabel")
-                //.data(year2015)
-                .transition()
-                .duration(1000)
-                .enter().append("text")
-                .attr("class", "dotlabel")
-                .attr("id", function(d) { return d.country_name; })
-                //.attr("text-anchor", "end")
-                //.text(function(d) { return d.country_name; })
-                //.text(function(d) { return d.country_name; })
-                //.call(positionlabel)
-                //.call(updateToolTip)
-
-
-            
-
-	}
+    }
 
 	// Positions the dots based on data.
 	function position(dot) {
@@ -191,7 +260,7 @@ var yearLabel = svg.append('text')
 			    return xScale(x(d));
 			    })
 				.attr("cy", function(d) { return yScale(y(d)); })
-			.attr("r",  8)
+			.attr("r",  7)
 
 	}
 
@@ -204,28 +273,11 @@ var yearLabel = svg.append('text')
 
     function updateToolTip(dot){
 
-
-        var toolTip = d3.tip()
-            .attr("class", "tooltip")
-            .offset([60, 160])
-            .html(function (d) {
-            return (`Country: ${d.country_name}</br>loan average: ${(+d.loan_amount/+d.loan_count)} GDP: ${(d.gdp)}`);
-            });
-            // dot.append("title")
-            // .text(function(d) { return `loan average: ${(+d.loan_amount/+d.loan_count)} GDP: ${(d.gdp)}`});
+        // Add a title.
+        dot.append("title")
+        .text(function(d) { return `Country: ${d.country_name}
+                        loan average: ${(+d.loan_amount/+d.loan_count)} GDP: ${(d.gdp)}`});
     
-
-        dot.call(toolTip);
-
-        dot.on("mouseover", function (data) {
-            console.log(data)
-                toolTip.show(data);
-            })
-            // onmouseout event
-            .on("mouseout", function (data, index) {
-                toolTip.hide(data);
-            });
-        return dot;
     }
-	
 }
+	
