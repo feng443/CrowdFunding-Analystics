@@ -82,9 +82,11 @@ var myMap = L.map("map", {
         37.09, -95.71
       ],
       zoom: 5,
-      layers: [streetmap, darkmap, satelliteMap]
+      //layers: [streetmap]
 });
+console.log(streetmap)
+streetmap.addTo(myMap)
 
 // Create a layer control, containing our baseMaps and overlayMaps, and add them to the map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+// L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 });
