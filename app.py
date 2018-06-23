@@ -237,6 +237,10 @@ def flow_view():
 def map_view():
     return render_template('map_view.html')
 
+@app.route('/flow_map_view')
+def flow_map_view():
+    return render_template('flow_map_view.html')
+
 @app.route('/scatter_view')
 def scatter_view():
     return render_template('scatter_view.html')
