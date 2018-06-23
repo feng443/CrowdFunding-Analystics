@@ -2,7 +2,7 @@
 <Chan Feng> 2018-06-04 Rutgers Data Science Data Visualization Bootcamp
 
 Ref for flow on map: http://bl.ocks.org/Andrew-Reid/8de4b9d0d0a87a478770e0cc86e2f5e4
-Ref: https://github.com/jwasilgeo/Leaflet.Canvas-Flowmap-Layer
+TODO: https://github.com/jwasilgeo/Leaflet.Canvas-Flowmap-Layer
 
 
 */
