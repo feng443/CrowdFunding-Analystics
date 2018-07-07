@@ -2,12 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scatter_styles.css') }}">
+    <title>Scatter View</title>
 </head>
 <body>
 <h1>Scatter View</h1>
 
-<div id="scatter"></div>
+    <div id="myDropdown" class="dropdown">
+        <select id="yearDropdown" class="dropbtn">
+            <option>Select Year</option>
+            <option value='year2016_M'>2016 male</option>
+            <option value='year2015_M'>2015 male</option>
+            <option value='year2014_M'>2014 male</option>
+            <option value='year2013_M'>2013 male</option>
+            <option value='year2012_M'>2012 male</option>
+            <option value='year2011_M'>2011 male</option>
+            <option value='year2010_M'>2010 male</option>
+            <option value='year2009_M'>2009 male</option>
+            <option value='year2008_M'>2008 male</option>
+            <option value='year2007_M'>2007 male</option>
+            <option value='year2016_F'>2016 female</option>
+            <option value='year2015_F'>2015 female</option>
+            <option value='year2014_F'>2014 female</option>
+            <option value='year2013_F'>2013 female</option>
+            <option value='year2012_F'>2012 female</option>
+            <option value='year2011_F'>2011 female</option>
+            <option value='year2010_F'>2010 female</option>
+            <option value='year2009_F'>2009 female</option>
+            <option value='year2008_F'>2008 female</option>
+            <option value='year2007_F'>2007 female</option>
 
+        </select>
+    </div>
+
+    <div id="scatter"></div>
+    <!-- <button id="updateButton" onClick="nextYear()">Go to next year >></button> -->
+
+    <script src="{{ url_for('static', filename='js/scatter3.js') }}"></script>
+    
 </body>
 </html>

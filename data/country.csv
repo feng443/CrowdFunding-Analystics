@@ -1,0 +1,208 @@
+country_code,country_name,income_level,longitude,latitude
+AD,Andorra,High income,1.5218,42.5075
+AE,United Arab Emirates,High income,54.3705,24.4764
+AF,Afghanistan,Low income,69.1761,34.5228
+AG,Antigua and Barbuda,High income,-61.8456,17.1175
+AL,Albania,Upper middle income,19.8172,41.3317
+AM,Armenia,Lower middle income,44.509,40.1596
+AO,Angola,Lower middle income,13.242,-8.81155
+AR,Argentina,Upper middle income,-58.4173,-34.6118
+AS,American Samoa,Upper middle income,-170.691,-14.2846
+AT,Austria,High income,16.3798,48.2201
+AU,Australia,High income,149.129,-35.282
+AW,Aruba,High income,-70.0167,12.5167
+AZ,Azerbaijan,Upper middle income,49.8932,40.3834
+BA,Bosnia and Herzegovina,Upper middle income,18.4214,43.8607
+BB,Barbados,High income,-59.6105,13.0935
+BD,Bangladesh,Lower middle income,90.4113,23.7055
+BE,Belgium,High income,4.36761,50.8371
+BF,Burkina Faso,Low income,-1.53395,12.3605
+BG,Bulgaria,Upper middle income,23.3238,42.7105
+BH,Bahrain,High income,50.5354,26.1921
+BI,Burundi,Low income,29.3639,-3.3784
+BJ,Benin,Low income,2.6323,6.4779
+BM,Bermuda,High income,-64.706,32.3293
+BN,Brunei Darussalam,High income,114.946,4.94199
+BO,Bolivia,Lower middle income,-66.1936,-13.9908
+BR,Brazil,Upper middle income,-47.9292,-15.7801
+BS,"Bahamas, The",High income,-77.339,25.0661
+BT,Bhutan,Lower middle income,89.6177,27.5768
+BW,Botswana,Upper middle income,25.9201,-24.6544
+BY,Belarus,Upper middle income,27.5766,53.9678
+BZ,Belize,Upper middle income,-88.7713,17.2534
+CA,Canada,High income,-75.6919,45.4215
+CD,"Congo, Dem. Rep.",Low income,15.3222,-4.325
+CG,"Congo, Rep.",Lower middle income,15.2662,-4.2767
+CH,Switzerland,High income,7.44821,46.948
+CI,Cote d'Ivoire,Lower middle income,-4.0305,5.332
+CL,Chile,High income,-70.6475,-33.475
+CM,Cameroon,Lower middle income,11.5174,3.8721
+CN,China,Upper middle income,116.286,40.0495
+CO,Colombia,Upper middle income,-74.082,4.60987
+CR,Costa Rica,Upper middle income,-84.0089,9.63701
+CU,Cuba,Upper middle income,-82.3667,23.1333
+CV,Cabo Verde,Lower middle income,-23.5087,14.9218
+CY,Cyprus,High income,33.3736,35.1676
+CZ,Czech Republic,High income,14.4205,50.0878
+DE,Germany,High income,13.4115,52.5235
+DJ,Djibouti,Lower middle income,43.1425,11.5806
+DK,Denmark,High income,12.5681,55.6763
+DM,Dominica,Upper middle income,-61.39,15.2976
+DO,Dominican Republic,Upper middle income,-69.8908,18.479
+DZ,Algeria,Upper middle income,3.05097,36.7397
+EC,Ecuador,Upper middle income,-78.5243,-0.229498
+EE,Estonia,High income,24.7586,59.4392
+EG,"Egypt, Arab Rep.",Lower middle income,31.2461,30.0982
+ER,Eritrea,Low income,38.9183,15.3315
+ES,Spain,High income,-3.70327,40.4167
+ET,Ethiopia,Low income,38.7468,9.02274
+FI,Finland,High income,24.9525,60.1608
+FJ,Fiji,Upper middle income,178.399,-18.1149
+FM,"Micronesia, Fed. Sts.",Lower middle income,158.185,6.91771
+FO,Faroe Islands,High income,-6.91181,61.8926
+FR,France,High income,2.35097,48.8566
+GA,Gabon,Upper middle income,9.45162,0.38832
+GB,United Kingdom,High income,-0.126236,51.5002
+GD,Grenada,Upper middle income,-61.7449,12.0653
+GE,Georgia,Lower middle income,44.793,41.71
+GH,Ghana,Lower middle income,-0.20795,5.57045
+GI,Gibraltar,High income,,
+GL,Greenland,High income,-51.7214,64.1836
+GM,"Gambia, The",Low income,-16.5885,13.4495
+GN,Guinea,Low income,-13.7,9.51667
+GR,Greece,High income,23.7166,37.9792
+GT,Guatemala,Lower middle income,-90.5328,14.6248
+GU,Guam,High income,144.794,13.4443
+GW,Guinea-Bissau,Low income,-15.1804,11.8037
+GY,Guyana,Upper middle income,-58.1548,6.80461
+GZ,West Bank and Gaza,Lower middle income,,
+HK,"Hong Kong SAR, China",High income,114.109,22.3964
+HN,Honduras,Lower middle income,-87.4667,15.1333
+HR,Croatia,Upper middle income,15.9614,45.8069
+HT,Haiti,Low income,-72.3288,18.5392
+HU,Hungary,High income,19.0408,47.4984
+ID,Indonesia,Lower middle income,106.83,-6.19752
+IE,Ireland,High income,-6.26749,53.3441
+IL,Israel,High income,35.2035,31.7717
+IN,India,Lower middle income,77.225,28.6353
+IQ,Iraq,Upper middle income,44.394,33.3302
+IR,"Iran, Islamic Rep.",Upper middle income,51.4447,35.6878
+IS,Iceland,High income,-21.8952,64.1353
+IT,Italy,High income,12.4823,41.8955
+JM,Jamaica,Upper middle income,-76.792,17.9927
+JO,Jordan,Lower middle income,35.9263,31.9497
+JP,Japan,High income,139.77,35.67
+KE,Kenya,Lower middle income,36.8126,-1.27975
+KG,Kyrgyz Republic,Lower middle income,74.6057,42.8851
+KH,Cambodia,Lower middle income,104.874,11.5556
+KM,Comoros,Low income,43.2418,-11.6986
+KN,St. Kitts and Nevis,High income,-62.7309,17.3
+KP,"Korea, Dem. People’s Rep.",Low income,125.754,39.0319
+KR,"Korea, Rep.",High income,126.957,37.5323
+KW,Kuwait,High income,47.9824,29.3721
+KY,Cayman Islands,High income,-81.3857,19.3022
+KZ,Kazakhstan,Upper middle income,71.4382,51.1879
+LA,Lao PDR,Lower middle income,102.177,18.5826
+LB,Lebanon,Upper middle income,35.5134,33.8872
+LC,St. Lucia,Upper middle income,-60.9832,14.0
+LI,Liechtenstein,High income,9.52148,47.1411
+LK,Sri Lanka,Lower middle income,79.8528,6.92148
+LR,Liberia,Low income,-10.7957,6.30039
+LS,Lesotho,Lower middle income,27.7167,-29.5208
+LT,Lithuania,High income,25.2799,54.6896
+LU,Luxembourg,High income,6.1296,49.61
+LV,Latvia,High income,24.1048,56.9465
+LY,Libya,Upper middle income,13.1072,32.8578
+MA,Morocco,Lower middle income,-6.8704,33.9905
+MC,Monaco,High income,7.41891,43.7325
+MD,Moldova,Lower middle income,28.8497,47.0167
+ME,Montenegro,Upper middle income,19.2595,42.4602
+MG,Madagascar,Low income,45.7167,-20.4667
+MH,Marshall Islands,Upper middle income,171.135,7.11046
+MK,"Macedonia, FYR",Upper middle income,21.4361,42.0024
+ML,Mali,Low income,-7.50034,13.5667
+MM,Myanmar,Lower middle income,95.9562,21.914
+MN,Mongolia,Lower middle income,106.937,47.9129
+MO,"Macao SAR, China",High income,113.55,22.1667
+MP,Northern Mariana Islands,High income,145.765,15.1935
+MR,Mauritania,Lower middle income,-15.9824,18.2367
+MT,Malta,High income,14.5189,35.9042
+MU,Mauritius,Upper middle income,57.4977,-20.1605
+MV,Maldives,Upper middle income,73.5109,4.1742
+MW,Malawi,Low income,33.7703,-13.9899
+MX,Mexico,Upper middle income,-99.1276,19.427
+MY,Malaysia,Upper middle income,101.684,3.12433
+MZ,Mozambique,Low income,32.5713,-25.9664
+NC,New Caledonia,High income,166.464,-22.2677
+NE,Niger,Low income,2.1073,13.514
+NG,Nigeria,Lower middle income,7.48906,9.05804
+NI,Nicaragua,Lower middle income,-86.2734,12.1475
+NL,Netherlands,High income,4.89095,52.3738
+NO,Norway,High income,10.7387,59.9138
+NP,Nepal,Low income,85.3157,27.6939
+NZ,New Zealand,High income,174.776,-41.2865
+OM,Oman,High income,58.5874,23.6105
+PA,Panama,Upper middle income,-79.5188,8.99427
+PE,Peru,Upper middle income,-77.0465,-12.0931
+PF,French Polynesia,High income,-149.57,-17.535
+PG,Papua New Guinea,Lower middle income,147.194,-9.47357
+PH,Philippines,Lower middle income,121.035,14.5515
+PK,Pakistan,Lower middle income,72.8,30.5167
+PL,Poland,High income,21.02,52.26
+PR,Puerto Rico,High income,-66.0,18.23
+PS,West Bank and Gaza,Lower middle income,,
+PT,Portugal,High income,-9.13552,38.7072
+PW,Palau,High income,134.479,7.34194
+PY,Paraguay,Upper middle income,-57.6362,-25.3005
+QA,Qatar,High income,51.5082,25.2948
+RO,Romania,Upper middle income,26.0979,44.4479
+RS,Serbia,Upper middle income,20.4656,44.8024
+RU,Russian Federation,Upper middle income,37.6176,55.7558
+RW,Rwanda,Low income,30.0587,-1.95325
+SA,Saudi Arabia,High income,46.6977,24.6748
+SB,Solomon Islands,Lower middle income,159.949,-9.42676
+SC,Seychelles,High income,55.4466,-4.6309
+SD,Sudan,Lower middle income,32.5363,15.5932
+SE,Sweden,High income,18.0645,59.3327
+SG,Singapore,High income,103.85,1.28941
+SI,Slovenia,High income,14.5044,46.0546
+SK,Slovak Republic,High income,17.1073,48.1484
+SL,Sierra Leone,Low income,-13.2134,8.4821
+SM,San Marino,High income,12.4486,43.9322
+SN,Senegal,Low income,-17.4734,14.7247
+SO,Somalia,Low income,45.3254,2.07515
+SR,Suriname,Upper middle income,-55.1679,5.8232
+SS,South Sudan,Low income,31.6,4.85
+SV,El Salvador,Lower middle income,-89.2073,13.7034
+SY,Syrian Arab Republic,Lower middle income,36.3119,33.5146
+SZ,Swaziland,Lower middle income,31.4659,-26.5225
+TC,Turks and Caicos Islands,High income,-71.1414,21.4603
+TG,Togo,Low income,1.2255,6.1228
+TH,Thailand,Upper middle income,100.521,13.7308
+TJ,Tajikistan,Lower middle income,68.7864,38.5878
+TL,Timor-Leste,Lower middle income,125.567,-8.56667
+TM,Turkmenistan,Upper middle income,58.3794,37.9509
+TN,Tunisia,Lower middle income,10.21,36.7899
+TO,Tonga,Upper middle income,-175.216,-21.136
+TR,Turkey,Upper middle income,32.3606,39.7153
+TT,Trinidad and Tobago,High income,-61.4789,10.6596
+TV,Tuvalu,Upper middle income,179.09,-8.63149
+TW,"Taiwan, China",High income,,
+TZ,Tanzania,Low income,35.7382,-6.17486
+UA,Ukraine,Lower middle income,30.5038,50.4536
+UG,Uganda,Low income,32.5729,0.314269
+US,United States,High income,-77.032,38.8895
+UY,Uruguay,High income,-56.0675,-34.8941
+UZ,Uzbekistan,Lower middle income,69.269,41.3052
+VC,St. Vincent and the Grenadines,Upper middle income,-61.2653,13.2035
+VE,"Venezuela, RB",Upper middle income,-69.8371,9.08165
+VG,British Virgin Islands,High income,-64.6231,18.4314
+VI,Virgin Islands (U.S.),High income,-64.8963,18.3358
+VN,Vietnam,Lower middle income,105.825,21.0069
+VU,Vanuatu,Lower middle income,168.321,-17.7404
+WS,Samoa,Upper middle income,-171.752,-13.8314
+XK,Kosovo,Lower middle income,20.926,42.565
+YE,"Yemen, Rep.",Lower middle income,44.2075,15.352
+ZA,South Africa,Upper middle income,28.1871,-25.746
+ZM,Zambia,Lower middle income,28.2937,-15.3982
+ZW,Zimbabwe,Low income,31.0672,-17.8312
