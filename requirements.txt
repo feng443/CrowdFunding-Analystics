@@ -1,6 +1,6 @@
 wbdata
 sqlalchemy
-pymysql
+#pymysql
 pandas
 numpy
 flask_sqlalchemy
