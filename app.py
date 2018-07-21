@@ -1,18 +1,20 @@
 # Flask App to provide data end points
-
+#
 from flask import Flask, render_template, jsonify, make_response
-from config import MYSQL_URL
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 
 import re
 import pandas as pd
 from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.sql import select
-import pymysql
 
-pymysql.install_as_MySQLdb()
-from config import MYSQL_URL
-engine = create_engine(MYSQL_URL, encoding='utf-8')
+#import pymysql
+#pymysql.install_as_MySQLdb()
+#from config import MYSQL_URL, SQLLITE_PATH
+from config import SQLLITE_PATH
+
+# engine = create_engine(MYSQL_URL, encoding='utf-8')
+engine = create_engine(SQLLITE_PATH)
 
 # @TODO: Initialize your Flask app here
 # CODE GOES HERE
