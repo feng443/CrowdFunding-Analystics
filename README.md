@@ -83,3 +83,7 @@ under statis/js
 
 under static/css
 
+
+## Herorku 
+
+git push heroku Chan:master
