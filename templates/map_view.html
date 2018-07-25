@@ -1,6 +1,12 @@
+Top 10 Countries that give Micro Loans
+BY PHILIP GINAND
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <style> #map,
         body,
@@ -29,13 +35,85 @@
   <!--D3 cdn-->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
   
+=======
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+
+    }
+    body {
+        margin: 0;
+    }
+    #map {
+        width: 100%;
+        height: 100%;
+
+    }
+
+
+
+ </style>
+
+>>>>>>> 376b1b3bc8a6b2c3ee0602e2ec0ba2a4e2e51202
 </head>
+
 <body>
+<div id="map"></div>
+</body>
 
-<h1>Map View</h1>
 
+<<<<<<< HEAD
 <div id="map"></div>
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 <!-- <script type = "text/javascript" src = "map.js"></script> -->
+=======
+
+<script type="text/javascript">
+
+
+var points = [
+    ["South Africa",-6.13, 39.31],
+    ["Japan",35.68, 139.76],
+    ["Australia/New Zeland",-36.85, 174.78],
+    ["INDIA",29.01, 77.38],
+    ["SINGAPORE",1.36, 103.75],
+    ["BRAZIL",-22.9, -43.24],
+    ["CANADA",43.64, -79.4],
+    ["USA",30.74, -90.33],
+    ["UK",51.5072, -0.1275]
+    ];
+
+//create map object and set default positions and zoom level
+var map = L.map('map').setView([20, 0], 2);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+
+
+
+  var Icon = L.icon({
+    iconUrl: 'http://myinspirationinformation.com/wp-content/uploads/2015/12/logoAndName.png',
+    //shadowUrl: 'http://leafletjs.com/docs/images/leaf-shadow.png',
+
+    iconSize:     [20, 20], // size of the icon
+    //shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [10, 20], // point of the icon which will correspond to marker's location
+    //shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+});
+
+for (var i = 0; i < points.length; i++) {
+        L.marker([points[i][1], points[i][2]], {icon: Icon}).bindPopup(points[i][0]).addTo(map);
+    }
+
+
+</script>
+>>>>>>> 376b1b3bc8a6b2c3ee0602e2ec0ba2a4e2e51202
 </body>
+
 </html>
