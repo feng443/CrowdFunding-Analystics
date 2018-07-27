@@ -3,6 +3,16 @@ Mapping the Crowd Funding
 
 Chan * Shikha *Philips
 
+**TODO**: 
+
+- PPT:
+- Flow Map with ref to: https://github.com/jwasilgeo/Leaflet.Canvas-Flowmap-Layer
+- Clean up Chord and make it more modular
+- Init effort to setup heroku but need more work
+
+
+
+
 -----------------------------------------
 
 
@@ -73,3 +83,7 @@ under statis/js
 
 under static/css
 
+
+## Herorku 
+
+git push heroku Chan:master
