@@ -3,7 +3,9 @@ Mapping the Crowd Funding
 
 Chan * Shikha *Philips
 
-**TODO**: 
+Live Site: https://kiva-data-analysis.herokuapp.com/
+
+Github: https://github.com/feng443/CrowdFunding-Analystics
 
 - PPT:
 - Flow Map with ref to: https://github.com/jwasilgeo/Leaflet.Canvas-Flowmap-Layer
@@ -86,4 +88,9 @@ under static/css
 
 ## Herorku 
 
+```bash
+heroku login
+heroku git:remote -a kiva-data-analysis
 git push heroku Chan:master
+
+```
