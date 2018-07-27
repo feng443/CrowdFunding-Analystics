@@ -1,45 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <head>
+        <title>Kiva Analysis</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+                /* Add a dark background color with a little bit see-through */ 
+        .navbar {
+            margin-bottom: 0;
+            background-color: #2d2d30;
+            border: 0;
+            font-size: 11px !important;
+            letter-spacing: 4px;
+            opacity:0.9;
+        }
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        /* Add a gray color to all navbar links */
+        .navbar li a, .navbar .navbar-brand { 
+            color: rgb(83, 177, 54) !important;
+        }
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-            crossorigin="anonymous"></script>
+        /* On hover, the links will turn white */
+        .navbar-nav li a:hover {
+            color: rgb(161, 202, 149) !important;
+        }
 
+        /* The active link */
+        .navbar-nav li.active a {
+            color: #fff !important;
+            background-color:#29292c !important;
+        }
 
-</head>
-<body>
-<h1>Mapping the Crowd Funding</h1>
-<h2>End Points</h2>
+        /* Remove border color from the collapsible button */
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+        }
 
-{{ api|safe }}
-<h2>Flow View</h2>
-<!-- <iframe src="/chord_view"></iframe> -->
-<a href="/chord_view">Chord</a>
+        /* Dropdown */
+        .open .dropdown-toggle {
+            color: #fff ;
+            background-color: #555 !important;
+        }
 
-<h2>Map View</h2>
-<!-- <iframe src="/map_view"></iframe> -->
-<a href="/map_view">Map</a>
+        /* Dropdown links */
+        .dropdown-menu li a {
+            color: #000 !important;
+        }
 
-<h2>Flow Map View</h2>
-<!-- <iframe src="/map_view"></iframe> -->
-<a href="/flow_map_view">Flow Map</a>
+        /* On hover, the dropdown links will turn red */
+        .dropdown-menu li a:hover {
+            background-color: rgb(58, 56, 53) !important;
+        }
+        #home{
+            height: 800px; 
+            width: 100%; 
+            background-color: rgb(219, 236, 222);
+        }
+        #kivaHome{
+            margin: auto;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 30px;
+            width: 60%;
+            height: 300px;
+            padding: 50px;
+            border: 3px solid #73AD21;
+            background-color: rgb(210, 219, 219);
+        }
 
-<h2>Scatter View</h2>
-<!-- <iframe src="/scatter_view"></iframe> -->
-<a href="/scatter_view">Scatter Plots</a>
+        #chord{
+            padding: 45px;
+            height: 800px; 
+            width: 100%; 
+            background-color: rgb(210, 219, 219);
+        }
+        
+        #scatter{
+            padding:30px;
+            height: 800px; 
+            width: 100%; 
+            background-color: rgb(210, 219, 219);
+            
+        }
+        #map{
+            padding:17px;
+            height: 800px; 
+            width: 100%; 
+            background-color: rgb(210, 219, 219);
+        }
+        
 
+    </style>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <a class="navbar-brand" href="#home">KIVA CROWDFUNDING ANALYSIS</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#home">HOME</a></li>
+                        <!-- <li><a href="#endpoints">ENDPOINTS</a></li> -->
+                        <!-- <li><a href="#about">ABOUT US</a></li> -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">VISUALIZATIONS
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#chord">FLOW VIEW</a></li>
+                                <li><a href="#scatter">SCATTER VIEW</a></li>
+                                <li><a href="#map">MAP VIEW</a></li> 
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-</body>
-</html
+        <div id="home" class="container">
+            <div id="kivaHome">
+                This is our analysis of Kiva Crowdfunding. You can find our visualizations and analysis
+                under the "visualizations" tab.
+            </div>
+
+        </div>
+        <!-- <div id="endpoints" class="container">
+
+        </div> -->
+        <div id="chord" class="container">
+            <iframe width="800" height="600" src="http://127.0.0.1:5000/chord_view"></iframe>
+        </div>
+        <div id="scatter" class="container">
+            <iframe width="800" height="600" src="http://127.0.0.1:5000/scatter_view"></iframe>
+        </div>
+        <div id="map" class="container">
+            <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiOGZiZjYzZWItMTc0Mi00YzBhLTg0YTQtY2RkOTY2OWVmNmI4IiwidCI6IjMxOTc3NTRiLWIzYTctNDViNS1iODJjLWM4YmM2MmMyNWI1OCIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe>
+
+        </div>
+        <!-- <div id="about" class="container">
+
+        </div> -->
+    </body>
+
+</html>
