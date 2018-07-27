@@ -86,4 +86,9 @@ under static/css
 
 ## Herorku 
 
+```bash
+heroku login
+heroku git:remote -a kiva-data-analysis
 git push heroku Chan:master
+
+```
